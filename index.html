@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiếng Anh Lớp 3 - Global Success</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        quicksand: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#00A8FF',
+                            yellow: '#FFC048',
+                            pink: '#FF5E7E',
+                            green: '#05C46B',
+                            purple: '#A3CB38',
+                            darkPurple: '#575FCF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #F3F8FE;
+            background-image: radial-gradient(#d1e5ff 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+
+        .font-heading {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        .bounce-hover {
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .bounce-hover:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .push-button {
+            transition: all 0.1s ease;
+            box-shadow: 0px 6px 0px rgba(0, 0, 0, 0.15);
+        }
+        .push-button:active {
+            transform: translateY(4px);
+            box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #EBF3FE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #90BFFF;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0080FF;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-amber-200">
+
+    <!-- TOP HEADER NAVBAR -->
+    <header class="sticky top-0 z-50 glass-panel border-b-4 border-amber-300 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between">
+            <!-- Logo -->
+            <div onclick="navigateTo('home')" class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-12 h-12 bg-amber-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md transform -rotate-6 group-hover:rotate-0 transition-transform">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-2xl text-sky-600 tracking-wide flex items-center gap-2">
+                        English 3 <span class="text-xs font-bold px-2 py-0.5 bg-amber-400 text-slate-900 rounded-full font-sans shadow-sm">Global Success</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 font-semibold hidden sm:block">Học Tiếng Anh Lớp 3 Thật Vui & Dễ Dàng!</p>
+                </div>
+            </div>
+
+            <!-- Stats Bar (Stars & Badges Counter) -->
+            <div class="flex items-center gap-3">
+                <!-- Star Counter Button -->
+                <div class="bg-amber-50 border-2 border-amber-300 px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-inner">
+                    <span class="text-2xl animate-bounce">⭐</span>
+                    <span id="stars-display" class="font-heading font-bold text-amber-600 text-xl">0</span>
+                </div>
+
+                <!-- Badges Modal Trigger -->
+                <button onclick="openBadgesModal()" class="bg-indigo-50 hover:bg-indigo-100 border-2 border-indigo-200 text-indigo-700 px-3 py-1.5 rounded-full flex items-center gap-1.5 font-bold text-sm transition-colors">
+                    <span class="text-xl">🏆</span>
+                    <span class="hidden md:inline font-heading">Huy Chương</span>
+                </button>
+
+                <!-- Audio Toggle Button -->
+                <button id="sound-toggle-btn" onclick="toggleSound()" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors" title="Bật/Tắt âm thanh hiệu ứng">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="bg-sky-50 border-t border-sky-100">
+            <div class="max-w-6xl mx-auto px-4 flex items-center justify-start md:justify-center gap-2 overflow-x-auto py-2 no-scrollbar">
+                <button id="nav-home" onclick="navigateTo('home')" class="nav-tab px-4 py-2 rounded-2xl font-heading font-bold text-sm sm:text-base text-sky-700 bg-sky-200 transition-all flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-house"></i> Trang Chủ
+                </button>
+                <button id="nav-units" onclick="navigateTo('units')" class="nav-tab px-4 py-2 rounded-2xl font-heading font-bold text-sm sm:text-base text-slate-600 hover:bg-sky-100 transition-all flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-book-open"></i> Bài Học (20 Units)
+                </button>
+                <button id="nav-practice" onclick="navigateTo('practice')" class="nav-tab px-4 py-2 rounded-2xl font-heading font-bold text-sm sm:text-base text-slate-600 hover:bg-sky-100 transition-all flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-puzzle-piece"></i> Luyện Tập Từ Vựng
+                </button>
+                <button id="nav-quiz" onclick="navigateTo('quiz')" class="nav-tab px-4 py-2 rounded-2xl font-heading font-bold text-sm sm:text-base text-slate-600 hover:bg-sky-100 transition-all flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-gamepad text-amber-500"></i> Đấu Trường Quiz
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-6xl w-full mx-auto px-4 py-6 flex-grow">
+
+        <!-- ================= HOME VIEW ================= -->
+        <section id="view-home" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 rounded-3xl p-6 sm:p-10 text-white shadow-xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-xl z-10 text-center md:text-left">
+                    <span class="inline-block bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-amber-200 border border-white/30">
+                        ✨ Bám Sát SGK Global Success Lớp 3
+                    </span>
+                    <h2 class="font-heading text-3xl sm:text-5xl font-bold leading-tight">Chinh Phục Tiếng Anh Cực Vui! 🎉</h2>
+                    <p class="text-sky-100 text-sm sm:text-base font-medium">Học 20 bài học chuẩn bộ GD&ĐT, nghe phát âm giọng bản ngữ, ghép chữ vui nhộn và tích lũy thật nhiều Sao Vàng nhé!</p>
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
+                        <button onclick="navigateTo('units')" class="push-button bg-amber-400 hover:bg-amber-300 text-slate-900 font-heading font-bold px-6 py-3 rounded-2xl flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-rocket"></i> Bắt Đầu Học Ngay
+                        </button>
+                        <button onclick="navigateTo('quiz')" class="push-button bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-heading font-bold px-6 py-3 rounded-2xl flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-trophy"></i> Thử Thách Quiz 10 Câu
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mascot Avatar -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-36 h-36 sm:w-44 sm:h-44 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-4 border-white/40 shadow-2xl text-7xl sm:text-8xl animate-bounce">
+                        🦊
+                    </div>
+                    <span class="mt-2 text-xs font-bold bg-amber-400 text-slate-900 px-3 py-1 rounded-full shadow-md font-heading">
+                        Bạn Cáo Foxy Đồng Hành
+                    </span>
+                </div>
+
+                <!-- Decorative Circles -->
+                <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-white/10 rounded-full blur-2xl"></div>
+            </div>
+
+            <!-- Features Quick Access Grid -->
+            <div class="space-y-4">
+                <h3 class="font-heading text-2xl font-bold text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-compass text-sky-500"></i> Các Chức Năng Chính
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <!-- Unit Card -->
+                    <div onclick="navigateTo('units')" class="bounce-hover glass-panel p-6 rounded-3xl border-2 border-sky-100 shadow-sm cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-20 h-20 bg-sky-100 text-sky-500 rounded-3xl flex items-center justify-center text-4xl mb-4 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-slate-800 mb-1">Flashcards Bài Học</h4>
+                        <p class="text-xs text-slate-500 font-medium">10 Unit bám sát SGK tập 1 đầy đủ từ vựng & mẫu câu chuẩn.</p>
+                    </div>
+
+                    <!-- Practice Card -->
+                    <div onclick="navigateTo('practice')" class="bounce-hover glass-panel p-6 rounded-3xl border-2 border-amber-100 shadow-sm cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-20 h-20 bg-amber-100 text-amber-500 rounded-3xl flex items-center justify-center text-4xl mb-4 group-hover:bg-amber-400 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-font"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-slate-800 mb-1">Game Ghép Từ</h4>
+                        <p class="text-xs text-slate-500 font-medium">Luyện tập điền chữ cái còn thiếu giúp ghi nhớ từ vựng lâu hơn.</p>
+                    </div>
+
+                    <!-- Quiz Arena Card -->
+                    <div onclick="navigateTo('quiz')" class="bounce-hover glass-panel p-6 rounded-3xl border-2 border-emerald-100 shadow-sm cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-20 h-20 bg-emerald-100 text-emerald-500 rounded-3xl flex items-center justify-center text-4xl mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-slate-800 mb-1">Đấu Trường Quiz</h4>
+                        <p class="text-xs text-slate-500 font-medium">Trả lời các câu hỏi ngẫu nhiên nhận Huy Chương & Pháo Hoa!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= UNITS / FLASHCARDS VIEW ================= -->
+        <section id="view-units" class="space-y-6 hidden">
+            <!-- Header Filter / Selector -->
+            <div class="glass-panel p-6 rounded-3xl border-2 border-sky-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="font-heading font-bold text-2xl text-sky-600 flex items-center gap-2">
+                        <span>📚 Danh Sách Bài Học (Units)</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 font-medium">Chọn bài học để xem Flashcard phát âm và các mẫu câu giao tiếp.</p>
+                </div>
+
+                <!-- Unit Dropdown Selector -->
+                <div class="w-full md:w-72">
+                    <select id="unit-selector" onchange="loadSelectedUnit(this.value)" class="w-full bg-sky-50 border-2 border-sky-300 text-slate-800 font-heading font-bold rounded-2xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-400">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Active Unit Details Header Banner -->
+            <div id="unit-header-banner" class="bg-gradient-to-r from-amber-400 to-orange-400 rounded-3xl p-6 text-white shadow-md flex items-center justify-between">
+                <div>
+                    <span id="active-unit-badge" class="bg-white/20 text-white font-bold text-xs px-3 py-1 rounded-full font-heading uppercase tracking-wider">Unit 1</span>
+                    <h3 id="active-unit-title" class="font-heading text-2xl sm:text-3xl font-bold mt-1">Hello</h3>
+                    <p id="active-unit-desc" class="text-xs sm:text-sm text-amber-100 font-medium mt-1">Chào hỏi và tự giới thiệu bản thân</p>
+                </div>
+                <div id="active-unit-icon" class="text-5xl sm:text-6xl">
+                    👋
+                </div>
+            </div>
+
+            <!-- Sentence Structures Section -->
+            <div class="glass-panel p-6 rounded-3xl border-2 border-amber-200 shadow-sm space-y-3">
+                <h4 class="font-heading font-bold text-lg text-amber-600 flex items-center gap-2">
+                    <i class="fa-solid fa-comments"></i> <span>Mẫu Câu Trọng Tâm (Structures)</span>
+                </h4>
+                <div id="unit-structures-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Vocabulary Flashcards Grid -->
+            <div class="space-y-3">
+                <h4 class="font-heading font-bold text-lg text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-icons text-sky-500"></i> <span>Từ Vựng Bắt Buộc Nhớ (Vocabulary)</span>
+                </h4>
+                <div id="vocab-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PRACTICE GAME VIEW ================= -->
+        <section id="view-practice" class="space-y-6 hidden">
+            <div class="glass-panel p-6 rounded-3xl border-2 border-amber-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="font-heading font-bold text-2xl text-amber-600">🧩 Luyện Tập Ghép Từ Vựng</h2>
+                    <p class="text-xs text-slate-500 font-medium">Bé hãy chọn chữ cái còn thiếu để hoàn thành từ tiếng Anh đúng nhé!</p>
+                </div>
+                <button onclick="startWordGame()" class="push-button bg-amber-400 hover:bg-amber-300 text-slate-900 font-heading font-bold px-5 py-2.5 rounded-2xl text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Đổi Từ Khác
+                </button>
+            </div>
+
+            <!-- Word Puzzle Game Arena -->
+            <div class="max-w-xl mx-auto glass-panel p-8 rounded-3xl border-4 border-amber-300 shadow-lg text-center space-y-6">
+                <!-- Emoji Illustration -->
+                <div id="game-emoji" class="w-32 h-32 bg-amber-50 rounded-3xl border-2 border-amber-200 mx-auto flex items-center justify-center text-6xl shadow-inner animate-pulse">
+                    🐱
+                </div>
+
+                <!-- Meaning & Pronunciation Guide -->
+                <div>
+                    <span id="game-category" class="bg-sky-100 text-sky-700 font-heading font-bold text-xs px-3 py-1 rounded-full">Unit 1</span>
+                    <h3 id="game-meaning" class="font-heading font-bold text-2xl text-slate-800 mt-2">Con mèo</h3>
+                    <p id="game-phonetics" class="text-xs font-semibold text-slate-400 italic">/kæt/</p>
+                </div>
+
+                <!-- Incomplete Word Display Boxes -->
+                <div id="word-slots" class="flex justify-center items-center gap-2 sm:gap-3 py-2">
+                    <!-- Populated by JS slots -->
+                </div>
+
+                <!-- Letter Choice Buttons -->
+                <div class="pt-4 border-t border-slate-100">
+                    <p class="text-xs font-bold text-slate-400 mb-3 uppercase tracking-wider">Chọn 1 chữ cái phù hợp:</p>
+                    <div id="letter-options" class="flex flex-wrap justify-center gap-2 sm:gap-3">
+                        <!-- Choice buttons -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= QUIZ ARENA VIEW ================= -->
+        <section id="view-quiz" class="space-y-6 hidden">
+            <!-- Start Quiz Panel -->
+            <div id="quiz-start-panel" class="max-w-xl mx-auto glass-panel p-8 rounded-3xl border-4 border-emerald-300 shadow-xl text-center space-y-5">
+                <div class="w-24 h-24 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-5xl mx-auto shadow-inner">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                    <h2 class="font-heading font-bold text-3xl text-slate-800">Đấu Trường Trắc Nghiệm</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1 font-medium">Thử tài 10 câu hỏi tổng hợp kiến thức từ Unit 1 đến Unit 10. Trả lời đúng nhận ngay +2 ⭐ mỗi câu!</p>
+                </div>
+                <button onclick="startQuizEngine()" class="push-button bg-emerald-500 hover:bg-emerald-400 text-white font-heading font-bold px-8 py-3.5 rounded-2xl text-lg shadow-md w-full">
+                    🚀 Bắt Đầu Làm Bài Quizzes
+                </button>
+            </div>
+
+            <!-- Quiz Arena Active Screen -->
+            <div id="quiz-active-panel" class="max-w-2xl mx-auto glass-panel p-6 sm:p-8 rounded-3xl border-4 border-emerald-400 shadow-xl space-y-6 hidden">
+                <!-- Progress Header -->
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-2">
+                        <span id="quiz-progress-text" class="font-heading font-bold text-emerald-600 text-lg">Câu 1 / 10</span>
+                    </div>
+                    <div class="bg-amber-100 border border-amber-300 px-3 py-1 rounded-full flex items-center gap-1.5 font-bold text-amber-700 text-xs">
+                        <span>Điểm:</span> <span id="quiz-live-score" class="text-base text-amber-800">0</span>
+                    </div>
+                </div>
+
+                <!-- Question Prompt Box -->
+                <div class="space-y-4">
+                    <div id="quiz-question-container" class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200">
+                        <h3 id="quiz-question-text" class="font-heading font-bold text-xl text-slate-800">
+                            Loading question...
+                        </h3>
+                    </div>
+
+                    <!-- Options List -->
+                    <div id="quiz-options-container" class="grid grid-cols-1 gap-3">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= BADGES / ACHIEVEMENTS MODAL ================= -->
+    <div id="badges-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white max-w-lg w-full rounded-3xl p-6 border-4 border-indigo-300 shadow-2xl space-y-5 transform transition-all">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-heading font-bold text-2xl text-indigo-700 flex items-center gap-2">
+                    <span>🏆 Huy Chương & Thành Tích</span>
+                </h3>
+                <button onclick="closeBadgesModal()" class="w-9 h-9 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Badges List -->
+            <div id="badges-container" class="grid grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-1">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="pt-2 text-center">
+                <button onclick="closeBadgesModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-heading font-bold px-6 py-2 rounded-xl text-sm">
+                    Đóng Bảng Thành Tích
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-slate-400 text-xs font-semibold">
+        <p>✨ Chương trình Tiếng Anh Lớp 3 - SGK Global Success (Bộ GD&ĐT) ✨</p>
+    </footer>
+
+    <script>
+        /* ===================================================================
+           1. CURRICULUM DATA: UNITS 1 - 10 (GLOBAL SUCCESS GRADE 3)
+           =================================================================== */
+        const globalSuccessUnits = [
+            {
+                id: "unit1",
+                number: 1,
+                title: "Unit 1: Hello",
+                meaning: "Xin chào",
+                icon: "👋",
+                color: "from-amber-400 to-orange-400",
+                structures: [
+                    { en: "Hello / Hi", vi: "Xin chào" },
+                    { en: "I'm Ben.", vi: "Tôi/Mình là Ben." },
+                    { en: "How are you? - Fine, thank you.", vi: "Bạn có khỏe không? - Mình khỏe, cảm ơn." }
+                ],
+                vocab: [
+                    { word: "Hello", phonetics: "/həˈləʊ/", meaning: "Xin chào (trang trọng)", emoji: "👋" },
+                    { word: "Hi", phonetics: "/haɪ/", meaning: "Chào (thân mật)", emoji: "🙋" },
+                    { word: "Fine", phonetics: "/faɪn/", meaning: "Khỏe / Tốt", emoji: "😊" },
+                    { word: "Thank you", phonetics: "/θæŋk juː/", meaning: "Cảm ơn bạn", emoji: "🙏" }
+                ]
+            },
+            {
+                id: "unit2",
+                number: 2,
+                title: "Unit 2: Our Names",
+                meaning: "Tên của chúng mình",
+                icon: "🏷️",
+                color: "from-sky-400 to-blue-500",
+                structures: [
+                    { en: "What's your name?", vi: "Tên bạn là gì?" },
+                    { en: "My name's Linh.", vi: "Tên mình là Linh." },
+                    { en: "How do you spell your name?", vi: "Bạn đánh vần tên bạn thế nào?" }
+                ],
+                vocab: [
+                    { word: "Name", phonetics: "/neɪm/", meaning: "Tên", emoji: "📛" },
+                    { word: "Spell", phonetics: "/spel/", meaning: "Đánh vần", emoji: "🔤" },
+                    { word: "What", phonetics: "/wɒt/", meaning: "Cái gì", emoji: "❓" },
+                    { word: "How", phonetics: "/haʊ/", meaning: "Như thế nào", emoji: "💡" }
+                ]
+            },
+            {
+                id: "unit3",
+                number: 3,
+                title: "Unit 3: Our Friends",
+                meaning: "Các bạn của chúng mình",
+                icon: "👫",
+                color: "from-emerald-400 to-teal-500",
+                structures: [
+                    { en: "This is Tony.", vi: "Đây là Tony." },
+                    { en: "That is Mary.", vi: "Đó/Kia là Mary." },
+                    { en: "Is this Peter? - Yes, it is.", vi: "Đây có phải Peter không? - Đúng rồi." },
+                    { en: "Is that Linh? - No, it isn't.", vi: "Kia có phải Linh không? - Không phải." }
+                ],
+                vocab: [
+                    { word: "Friend", phonetics: "/frend/", meaning: "Bạn bè", emoji: "🤝" },
+                    { word: "This", phonetics: "/ðɪs/", meaning: "Đây (ở gần)", emoji: "👇" },
+                    { word: "That", phonetics: "/ðæt/", meaning: "Kia/Đó (ở xa)", emoji: "👉" },
+                    { word: "Yes", phonetics: "/jes/", meaning: "Đúng / Vâng", emoji: "✅" }
+                ]
+            },
+            {
+                id: "unit4",
+                number: 4,
+                title: "Unit 4: Our Bodies",
+                meaning: "Cơ thể của chúng mình",
+                icon: "🧍",
+                color: "from-purple-400 to-indigo-500",
+                structures: [
+                    { en: "What's this? - It's a face.", vi: "Đây là cái gì? - Đó là khuôn mặt." },
+                    { en: "Touch your hair!", vi: "Hãy chạm vào tóc của bạn!" },
+                    { en: "Open your mouth!", vi: "Hãy mở miệng ra!" }
+                ],
+                vocab: [
+                    { word: "Face", phonetics: "/feɪs/", meaning: "Khuôn mặt", emoji: "😀" },
+                    { word: "Eye", phonetics: "/aɪ/", meaning: "Mắt", emoji: "👁️" },
+                    { word: "Ear", phonetics: "/ɪər/", meaning: "Tai", emoji: "👂" },
+                    { word: "Nose", phonetics: "/nəʊz/", meaning: "Mũi", emoji: "👃" },
+                    { word: "Mouth", phonetics: "/maʊθ/", meaning: "Miệng", emoji: "👄" },
+                    { word: "Hand", phonetics: "/hænd/", meaning: "Bàn tay", emoji: "✋" }
+                ]
+            },
+            {
+                id: "unit5",
+                number: 5,
+                title: "Unit 5: My Hobbies",
+                meaning: "Sở thích của tớ",
+                icon: "🎨",
+                color: "from-pink-400 to-rose-500",
+                structures: [
+                    { en: "What's your hobby?", vi: "Sở thích của bạn là gì?" },
+                    { en: "It's singing.", vi: "Đó là hát." },
+                    { en: "I like dancing.", vi: "Mình thích nhảy múa." }
+                ],
+                vocab: [
+                    { word: "Singing", phonetics: "/ˈsɪŋɪŋ/", meaning: "Hát", emoji: "🎤" },
+                    { word: "Dancing", phonetics: "/ˈdɑːnsɪŋ/", meaning: "Nhảy múa", emoji: "💃" },
+                    { word: "Drawing", phonetics: "/ˈdrɔːɪŋ/", meaning: "Vẽ tranh", emoji: "🎨" },
+                    { word: "Cooking", phonetics: "/ˈkʊkɪŋ/", meaning: "Nấu ăn", emoji: "🍳" },
+                    { word: "Swimming", phonetics: "/ˈswɪmɪŋ/", meaning: "Bơi lội", emoji: "🏊" }
+                ]
+            },
+            {
+                id: "unit6",
+                number: 6,
+                title: "Unit 6: Our School",
+                meaning: "Trường học của chúng mình",
+                icon: "🏫",
+                color: "from-amber-500 to-yellow-500",
+                structures: [
+                    { en: "Is this our classroom?", vi: "Đây có phải phòng học của chúng ta không?" },
+                    { en: "Yes, it is. / No, it isn't.", vi: "Đúng vậy. / Không phải." },
+                    { en: "Let's go to the gym!", vi: "Chúng mình cùng đến phòng thể chất nhé!" }
+                ],
+                vocab: [
+                    { word: "School", phonetics: "/skuːl/", meaning: "Trường học", emoji: "🏫" },
+                    { word: "Classroom", phonetics: "/ˈklɑːsruːm/", meaning: "Phòng học", emoji: "🚪" },
+                    { word: "Library", phonetics: "/ˈlaɪbrəri/", meaning: "Thư viện", emoji: "📚" },
+                    { word: "Gym", phonetics: "/dʒɪm/", meaning: "Phòng thể dục", emoji: "🏀" }
+                ]
+            },
+            {
+                id: "unit7",
+                number: 7,
+                title: "Unit 7: Classroom Activities",
+                meaning: "Hoạt động trong lớp",
+                icon: "🙋‍♂️",
+                color: "from-cyan-400 to-blue-500",
+                structures: [
+                    { en: "Open your book, please!", vi: "Xin mời mở sách ra!" },
+                    { en: "May I come in? - Yes, you can.", vi: "Em có thể vào lớp không? - Được, em vào đi." },
+                    { en: "May I ask a question?", vi: "Em có thể đặt câu hỏi không?" }
+                ],
+                vocab: [
+                    { word: "Open", phonetics: "/ˈəʊpən/", meaning: "Mở ra", emoji: "📖" },
+                    { word: "Close", phonetics: "/kləʊz/", meaning: "Đóng lại", emoji: "📕" },
+                    { word: "Ask", phonetics: "/ɑːsk/", meaning: "Hỏi", emoji: "❓" },
+                    { word: "Answer", phonetics: "/ˈɑːnsər/", meaning: "Trả lời", emoji: "💬" }
+                ]
+            },
+            {
+                id: "unit8",
+                number: 8,
+                title: "Unit 8: School Things",
+                meaning: "Đồ dùng học tập",
+                icon: "✏️",
+                color: "from-orange-400 to-red-400",
+                structures: [
+                    { en: "I have a pen.", vi: "Tớ có một cái bút mực." },
+                    { en: "Do you have a ruler? - Yes, I do.", vi: "Bạn có thước kẻ không? - Có, tớ có." }
+                ],
+                vocab: [
+                    { word: "Pen", phonetics: "/pen/", meaning: "Bút mực", emoji: "🖊️" },
+                    { word: "Pencil", phonetics: "/ˈpensl/", meaning: "Bút chì", emoji: "✏️" },
+                    { word: "Ruler", phonetics: "/ˈruːlər/", meaning: "Thước kẻ", emoji: "📏" },
+                    { word: "Eraser", phonetics: "/ɪˈreɪzər/", meaning: "Cục tẩy", emoji: "🧹" },
+                    { word: "School bag", phonetics: "/ˈskuːlbæɡ/", meaning: "Cặp sách", emoji: "🎒" }
+                ]
+            },
+            {
+                id: "unit9",
+                number: 9,
+                title: "Unit 9: Colours",
+                meaning: "Màu sắc",
+                icon: "🌈",
+                color: "from-fuchsia-400 to-purple-500",
+                structures: [
+                    { en: "What colour is it? - It's red.", vi: "Nó là màu gì? - Nó là màu đỏ." },
+                    { en: "Is your bag blue? - Yes, it is.", vi: "Cặp sách của bạn màu xanh dương phải không?" }
+                ],
+                vocab: [
+                    { word: "Red", phonetics: "/red/", meaning: "Màu đỏ", emoji: "🔴" },
+                    { word: "Blue", phonetics: "/bluː/", meaning: "Màu xanh dương", emoji: "🔵" },
+                    { word: "Yellow", phonetics: "/ˈjeləʊ/", meaning: "Màu vàng", emoji: "🟡" },
+                    { word: "Green", phonetics: "/ɡriːn/", meaning: "Màu xanh lá", emoji: "🟢" },
+                    { word: "Orange", phonetics: "/ˈɒrɪndʒ/", meaning: "Màu cam", emoji: "🟠" }
+                ]
+            },
+            {
+                id: "unit10",
+                number: 10,
+                title: "Unit 10: Break Time Activities",
+                meaning: "Hoạt động giờ ra chơi",
+                icon: "⚽",
+                color: "from-emerald-400 to-green-600",
+                structures: [
+                    { en: "What do you do at break time?", vi: "Bạn làm gì vào giờ ra chơi?" },
+                    { en: "I play football.", vi: "Tớ chơi đá bóng." },
+                    { en: "Do you play chess? - Yes, I do.", vi: "Bạn có chơi cờ vua không? - Có, tớ có." }
+                ],
+                vocab: [
+                    { word: "Football", phonetics: "/ˈfʊtbɔːl/", meaning: "Môn bóng đá", emoji: "⚽" },
+                    { word: "Badminton", phonetics: "/ˈbædmɪntən/", meaning: "Cầu lông", emoji: "🏸" },
+                    { word: "Chess", phonetics: "/tʃes/", meaning: "Cờ vua", emoji: "♟️" },
+                    { word: "Basketball", phonetics: "/ˈbɑːskɪtbɔːl/", meaning: "Bóng rổ", emoji: "🏀" }
+                ]
+            }
+        ];
+
+        /* ===================================================================
+           2. APP STATE MANAGEMENT & BADGES SYSTEM
+           =================================================================== */
+        let userStars = parseInt(localStorage.getItem('eng3_stars')) || 0;
+        let isSoundEnabled = true;
+        let activeUnitIndex = 0;
+
+        // Achievements Badges Definition
+        const badgesList = [
+            { id: 'b1', title: 'Khởi Đầu Tốt', desc: 'Đạt 10 sao đầu tiên', icon: '🌟', minStars: 10 },
+            { id: 'b2', title: 'Học Sinh Chăm Chỉ', desc: 'Đạt 30 sao vàng', icon: '📚', minStars: 30 },
+            { id: 'b3', title: 'Vua Từ Vựng', desc: 'Đạt 60 sao vàng', icon: '👑', minStars: 60 },
+            { id: 'b4', title: 'Siêu Sao Tiếng Anh', desc: 'Đạt 100 sao vàng', icon: '🏆', minStars: 100 }
+        ];
+
+        /* ===================================================================
+           3. AUDIO & SPEECH SYNTHESIS ENGINE
+           =================================================================== */
+        // Web Audio API Sound Effects
+        function playEffectSound(type) {
+            if(!isSoundEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.2); // A5
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    osc.frequency.setValueAtTime(164.81, ctx.currentTime + 0.15); // E3
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.08);
+                }
+            } catch(e) {
+                // AudioContext fallback ignored
+            }
+        }
+
+        // Text-to-Speech Pronunciation
+        function speakEnglish(text) {
+            playEffectSound('click');
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85; // Slightly slower for kids
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function toggleSound() {
+            isSoundEnabled = !isSoundEnabled;
+            const btn = document.getElementById('sound-toggle-btn');
+            btn.innerHTML = isSoundEnabled ? `<i class="fa-solid fa-volume-high"></i>` : `<i class="fa-solid fa-volume-xmark text-rose-500"></i>`;
+        }
+
+        /* ===================================================================
+           4. NAVIGATION & VIEW SWITCHER
+           =================================================================== */
+        function navigateTo(viewId) {
+            playEffectSound('click');
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('bg-sky-200', 'text-sky-700');
+                tab.classList.add('text-slate-600', 'hover:bg-sky-100');
+            });
+
+            const activeTab = document.getElementById(`nav-${viewId}`);
+            if (activeTab) {
+                activeTab.classList.remove('text-slate-600', 'hover:bg-sky-100');
+                activeTab.classList.add('bg-sky-200', 'text-sky-700');
+            }
+
+            if (viewId === 'units') {
+                populateUnitSelector();
+                loadSelectedUnit(activeUnitIndex);
+            } else if (viewId === 'practice') {
+                startWordGame();
+            } else if (viewId === 'quiz') {
+                document.getElementById('quiz-start-panel').classList.remove('hidden');
+                document.getElementById('quiz-active-panel').classList.add('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Star Display Update
+        function awardStars(count) {
+            userStars += count;
+            localStorage.setItem('eng3_stars', userStars);
+            document.getElementById('stars-display').innerText = userStars;
+            playEffectSound('correct');
+        }
+
+        /* ===================================================================
+           5. UNITS & FLASHCARDS CONTROLLER
+           =================================================================== */
+        function populateUnitSelector() {
+            const selector = document.getElementById('unit-selector');
+            selector.innerHTML = '';
+            globalSuccessUnits.forEach((u, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.innerText = u.title;
+                if(idx === activeUnitIndex) opt.selected = true;
+                selector.appendChild(opt);
+            });
+        }
+
+        function loadSelectedUnit(index) {
+            activeUnitIndex = parseInt(index);
+            const unit = globalSuccessUnits[activeUnitIndex];
+
+            // Banner Update
+            document.getElementById('active-unit-badge').innerText = `Unit ${unit.number}`;
+            document.getElementById('active-unit-title').innerText = unit.title;
+            document.getElementById('active-unit-desc').innerText = unit.meaning;
+            document.getElementById('active-unit-icon').innerText = unit.icon;
+
+            // Sentence Structures List
+            const structContainer = document.getElementById('unit-structures-list');
+            structContainer.innerHTML = '';
+            unit.structures.forEach(st => {
+                const item = document.createElement('div');
+                item.className = 'bg-white p-3.5 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between gap-2';
+                item.innerHTML = `
+                    <div>
+                        <p class="font-heading font-bold text-slate-800 text-sm sm:text-base">${st.en}</p>
+                        <p class="text-xs text-amber-700 font-semibold">${st.vi}</p>
+                    </div>
+                    <button onclick="speakEnglish('${st.en.replace(/'/g, "\\'")}')" class="w-9 h-9 bg-amber-100 hover:bg-amber-200 text-amber-700 rounded-xl flex items-center justify-center shrink-0 transition-colors">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                `;
+                structContainer.appendChild(item);
+            });
+
+            // Vocab Flashcards Grid
+            const cardsGrid = document.getElementById('vocab-cards-grid');
+            cardsGrid.innerHTML = '';
+            unit.vocab.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'bounce-hover glass-panel border-2 border-sky-100 p-5 rounded-3xl shadow-sm flex flex-col items-center text-center cursor-pointer relative group';
+                card.onclick = () => {
+                    speakEnglish(v.word);
+                    awardStars(1);
+                };
+                card.innerHTML = `
+                    <span class="absolute top-3 right-3 text-xs bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">+1 ⭐</span>
+                    <div class="w-20 h-20 bg-sky-50 rounded-2xl flex items-center justify-center text-4xl mb-3 shadow-inner group-hover:scale-105 transition-transform">
+                        ${v.emoji}
+                    </div>
+                    <h5 class="font-heading font-bold text-xl text-slate-800 flex items-center gap-1.5">
+                        <span>${v.word}</span>
+                        <i class="fa-solid fa-volume-high text-sky-500 text-sm opacity-80"></i>
+                    </h5>
+                    <span class="text-xs font-semibold text-slate-400 italic">${v.phonetics}</span>
+                    <p class="text-xs font-bold text-slate-600 mt-1">${v.meaning}</p>
+                `;
+                cardsGrid.appendChild(card);
+            });
+        }
+
+        /* ===================================================================
+           6. PRACTICE GAME: MISSING LETTER PUZZLE
+           =================================================================== */
+        let currentGameWord = null;
+        let missingCharIndex = -1;
+
+        function startWordGame() {
+            // Pick random word from all units
+            const allVocab = [];
+            globalSuccessUnits.forEach(u => {
+                u.vocab.forEach(v => allVocab.push({ ...v, unitTitle: u.title }));
+            });
+
+            currentGameWord = allVocab[Math.floor(Math.random() * allVocab.length)];
+            const wordStr = currentGameWord.word;
+
+            // Pick a missing character index (avoid space)
+            const validIndices = [];
+            for (let i = 0; i < wordStr.length; i++) {
+                if (wordStr[i] !== ' ') validIndices.push(i);
+            }
+            missingCharIndex = validIndices[Math.floor(Math.random() * validIndices.length)];
+
+            // Render Game UI
+            document.getElementById('game-emoji').innerText = currentGameWord.emoji;
+            document.getElementById('game-meaning').innerText = currentGameWord.meaning;
+            document.getElementById('game-phonetics').innerText = currentGameWord.phonetics;
+            document.getElementById('game-category').innerText = currentGameWord.unitTitle;
+
+            // Render Slots
+            const slotsContainer = document.getElementById('word-slots');
+            slotsContainer.innerHTML = '';
+            for (let i = 0; i < wordStr.length; i++) {
+                const char = wordStr[i];
+                if (char === ' ') {
+                    slotsContainer.innerHTML += `<div class="w-4"></div>`;
+                    continue;
+                }
+
+                if (i === missingCharIndex) {
+                    slotsContainer.innerHTML += `
+                        <div id="slot-missing" class="w-12 h-14 bg-amber-100 border-4 border-dashed border-amber-400 rounded-2xl flex items-center justify-center font-heading font-bold text-2xl text-amber-700 animate-bounce">
+                            ?
+                        </div>
+                    `;
+                } else {
+                    slotsContainer.innerHTML += `
+                        <div class="w-12 h-14 bg-white border-2 border-slate-200 rounded-2xl flex items-center justify-center font-heading font-bold text-2xl text-slate-700 shadow-sm">
+                            ${char}
+                        </div>
+                    `;
+                }
+            }
+
+            // Generate Choice Options (Correct + 3 Distractors)
+            const correctChar = wordStr[missingCharIndex].toLowerCase();
+            const alphabet = "abcdefghijklmnopqrstuvwxyz";
+            const choices = new Set([correctChar]);
+
+            while (choices.size < 4) {
+                const randomChar = alphabet[Math.floor(Math.random() * alphabet.length)];
+                choices.add(randomChar);
+            }
+
+            const shuffledChoices = Array.from(choices).sort(() => Math.random() - 0.5);
+
+            // Render Choice Buttons
+            const choicesContainer = document.getElementById('letter-options');
+            choicesContainer.innerHTML = '';
+            shuffledChoices.forEach(char => {
+                const btn = document.createElement('button');
+                btn.className = 'push-button w-14 h-14 bg-amber-400 hover:bg-amber-300 text-slate-900 font-heading font-bold text-2xl rounded-2xl shadow-sm uppercase';
+                btn.innerText = char;
+                btn.onclick = () => checkWordChoice(char, correctChar);
+                choicesContainer.appendChild(btn);
+            });
+        }
+
+        function checkWordChoice(selectedChar, correctChar) {
+            if (selectedChar.toLowerCase() === correctChar.toLowerCase()) {
+                awardStars(2);
+                speakEnglish(currentGameWord.word);
+                confetti({ particleCount: 60, spread: 60, origin: { y: 0.7 } });
+                
+                // Show completed slot
+                const missingSlot = document.getElementById('slot-missing');
+                missingSlot.className = 'w-12 h-14 bg-emerald-400 text-white border-2 border-emerald-500 rounded-2xl flex items-center justify-center font-heading font-bold text-2xl shadow-md uppercase';
+                missingSlot.innerText = correctChar;
+
+                setTimeout(() => {
+                    startWordGame();
+                }, 1200);
+            } else {
+                playEffectSound('wrong');
+            }
+        }
+
+        /* ===================================================================
+           7. QUIZ ARENA ENGINE (10 QUESTIONS RANDOMIZED)
+           =================================================================== */
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let activeQuizQuestions = [];
+
+        function generateQuizSet() {
+            const pool = [];
+            // Build question bank from units
+            globalSuccessUnits.forEach(u => {
+                u.vocab.forEach(v => {
+                    pool.push({
+                        type: 'meaning',
+                        question: `Từ "${v.word}" có nghĩa tiếng Việt là gì?`,
+                        correct: v.meaning,
+                        speech: v.word,
+                        options: [v.meaning]
+                    });
+                });
+                u.structures.forEach(s => {
+                    pool.push({
+                        type: 'structure',
+                        question: `Hoàn thành mẫu câu: "${s.en}" nghĩa là:`,
+                        correct: s.vi,
+                        speech: s.en,
+                        options: [s.vi]
+                    });
+                });
+            });
+
+            // Shuffle pool & pick 10
+            const shuffled = pool.sort(() => Math.random() - 0.5).slice(0, 10);
+
+            // Populate distractors for options
+            shuffled.forEach(q => {
+                const allMeanings = pool.map(p => p.correct).filter(m => m !== q.correct);
+                const uniqueDistractors = Array.from(new Set(allMeanings)).sort(() => Math.random() - 0.5).slice(0, 3);
+                q.options = [q.correct, ...uniqueDistractors].sort(() => Math.random() - 0.5);
+            });
+
+            return shuffled;
+        }
+
+        function startQuizEngine() {
+            activeQuizQuestions = generateQuizSet();
+            currentQuizIndex = 0;
+            quizScore = 0;
+
+            document.getElementById('quiz-start-panel').classList.add('hidden');
+            document.getElementById('quiz-active-panel').classList.remove('hidden');
+            
+            renderCurrentQuestion();
+        }
+
+        function renderCurrentQuestion() {
+            if (currentQuizIndex >= activeQuizQuestions.length) {
+                // Quiz Finish State
+                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+                awardStars(5);
+
+                document.getElementById('quiz-active-panel').innerHTML = `
+                    <div class="text-center space-y-5 py-6">
+                        <div class="text-7xl animate-bounce">🏆</div>
+                        <h3 class="font-heading font-bold text-3xl text-slate-800">Xuất Sắc Cùng Bạn Foxy!</h3>
+                        <p class="text-sm font-semibold text-slate-600">Bé đã hoàn thành 10 câu hỏi và trả lời đúng ${quizScore} câu!</p>
+                        <div class="inline-block bg-amber-100 text-amber-800 font-heading font-bold px-4 py-2 rounded-2xl border border-amber-300">
+                            Thưởng Thêm: +5 ⭐ Vàng!
+                        </div>
+                        <div class="pt-4">
+                            <button onclick="navigateTo('quiz')" class="push-button bg-emerald-500 hover:bg-emerald-400 text-white font-heading font-bold px-8 py-3 rounded-2xl">
+                                Làm Bài Thi Khác 🚀
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = activeQuizQuestions[currentQuizIndex];
+            document.getElementById('quiz-progress-text').innerText = `Câu ${currentQuizIndex + 1} / 10`;
+            document.getElementById('quiz-live-score').innerText = quizScore;
+            document.getElementById('quiz-question-text').innerText = q.question;
+
+            if(q.speech) speakEnglish(q.speech);
+
+            const optionsContainer = document.getElementById('quiz-options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left bg-white hover:bg-emerald-50 border-2 border-slate-200 hover:border-emerald-300 p-4 rounded-2xl font-heading font-bold text-slate-700 transition-all shadow-sm flex items-center justify-between group';
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    <i class="fa-solid fa-circle-check text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                `;
+                btn.onclick = () => submitQuizAnswer(opt, q.correct);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function submitQuizAnswer(selectedOption, correctOption) {
+            if (selectedOption === correctOption) {
+                quizScore += 10;
+                awardStars(2);
+            } else {
+                playEffectSound('wrong');
+            }
+
+            currentQuizIndex++;
+            renderCurrentQuestion();
+        }
+
+        /* ===================================================================
+           8. BADGES & ACHIEVEMENTS SYSTEM
+           =================================================================== */
+        function openBadgesModal() {
+            playEffectSound('click');
+            const container = document.getElementById('badges-container');
+            container.innerHTML = '';
+
+            badgesList.forEach(b => {
+                const isUnlocked = userStars >= b.minStars;
+                const card = document.createElement('div');
+                card.className = `p-3.5 rounded-2xl border-2 flex items-center gap-3 ${isUnlocked ? 'bg-indigo-50 border-indigo-200 text-indigo-900' : 'bg-slate-50 border-slate-200 opacity-50'}`;
+                card.innerHTML = `
+                    <div class="text-3xl">${b.icon}</div>
+                    <div>
+                        <h5 class="font-heading font-bold text-sm">${b.title}</h5>
+                        <p class="text-xs text-slate-500">${b.desc}</p>
+                        <span class="text-[10px] font-bold ${isUnlocked ? 'text-emerald-600' : 'text-slate-400'}">
+                            ${isUnlocked ? '✓ Đã Đạt Được' : `Cần ${b.minStars} ⭐`}
+                        </span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('badges-modal').classList.remove('hidden');
+        }
+
+        function closeBadgesModal() {
+            document.getElementById('badges-modal').classList.add('hidden');
+        }
+
+        /* INITIAL APP LOAD */
+        window.onload = function() {
+            document.getElementById('stars-display').innerText = userStars;
+            populateUnitSelector();
+        };
+    </script>
+</body>
+</html>
